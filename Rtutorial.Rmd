@@ -1,0 +1,61 @@
+---
+title: "Rtutorial"
+author: "ADN"
+date: "23 January 2017"
+output: html_document
+---
+
+## Introduction
+
+This is the data description...
+
+```{r, echo = FALSE}
+# load the data
+
+ourdata <- read.csv("Data/Boats.csv", header = TRUE, sep = ";")
+
+#firstrows <- head(ourdata,5)
+
+firstrows <- ourdata[1:5, 1:3]
+
+knitr::kable(firstrows)
+
+```
+Lets now see the correlation of our column:
+
+```{r, echo = FALSE}
+colnames(firstrows) <-substring(colnames(firstrows), first = 1, last = 4)
+
+firstrows <- cbind(firstrows, 1:5)
+colnames(firstrows)[ncol(firstrows)] = "NEW"
+
+mycorrelations = cor(firstrows)
+knitr::kable(mycorrelations)
+
+
+
+```
+
+##Apply
+
+
+```{r, echo = true}
+
+tmp = apply(firstrows,2,range)
+
+knitr::kable(tmp)
+
+
+```
+
+##Apply my own function
+
+
+```{r, echo = true}
+
+myfunction <- function(inputvar) { sum(inputvar[1:2])}
+
+tmp = apply(firstrows,2,myfunction)
+
+
+```
